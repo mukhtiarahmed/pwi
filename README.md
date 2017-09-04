@@ -8,9 +8,9 @@
 ## Install and run the project 
 1. download/clone the project 
 2. prepare the database
-  * import in MySQL the self-contained file that comes with the project -  [database-script.sql]  
+  * import in MySQL the self-contained file that comes with the project -  [database-script.sql]  (https://github.com/mukhtiarahmed/pwi/blob/master/src/main/resources/database-script.sql  )
   * username/password - `vantibolli`/`vantibolli`
-  * you also can run database script using maven. update your database connection information in pom.xml Line nubmer 221 to 223
+  * you also can run database script using maven. update your database connection information in pom.xml Line nubmer 265 to 267
   * change to the root folder of the project and excute the following maven command 
   * `mvn sql:execute`
 3. change to the root folder of the project and excute the following maven command 
