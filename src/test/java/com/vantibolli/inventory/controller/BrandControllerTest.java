@@ -11,6 +11,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -83,7 +84,7 @@ public class BrandControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/brand/{id}" , brandId))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(brandId)));
 
 		verify(brandService, times(1)).get(anyLong());
@@ -98,7 +99,7 @@ public class BrandControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/brand/{id}" , brandId))
     	.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + brandId + " can not be found.")));    
 
 		
@@ -115,7 +116,7 @@ public class BrandControllerTest {
     	when(brandService.create(brand)).thenReturn(added);
     	
     	mockMvc.perform(post(API_VER + "/brand")
-				.contentType(APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_UTF8_VALUE)
 				.content(InventoryTestHelper.asJsonString(brand)))
 		.andExpect(status().isCreated());
         
@@ -132,7 +133,7 @@ public class BrandControllerTest {
     	when(brandService.update(BRAND_ID, brand)).thenReturn(updated);
     	
    	 	mockMvc.perform(put(API_VER + "/brand/{id}" , BRAND_ID)
-                .contentType(APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
                 .content(InventoryTestHelper.asJsonString(brand)))
                 .andExpect(status().isOk());             
 
@@ -144,7 +145,7 @@ public class BrandControllerTest {
     	doNothing().when(brandService).delete(BRAND_ID);
     	mockMvc.perform(delete(API_VER + "/brand/{id}" , BRAND_ID))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     	
     }
 

@@ -12,6 +12,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -84,7 +85,7 @@ public class WarehouseControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/warehouse/{id}" , id))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(id)));
 
 		verify(warehouseService, times(1)).get(anyLong());
@@ -98,7 +99,7 @@ public class WarehouseControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/warehouse/{id}" , id))
     	.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + id + " can not be found.")));
     }
 
@@ -112,7 +113,7 @@ public class WarehouseControllerTest {
     	when(warehouseService.create(warehouse)).thenReturn(added);
     	
     	mockMvc.perform(post(API_VER + "/warehouse")
-				.contentType(APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_UTF8_VALUE)
 				.content(InventoryTestHelper.asJsonString(warehouse)))
 		.andExpect(status().isCreated());
     }
@@ -127,7 +128,7 @@ public class WarehouseControllerTest {
     	when(warehouseService.update(COUNTRY_ID, warehouse)).thenReturn(updated);
     	
    	 	mockMvc.perform(put(API_VER + "/warehouse/{id}" , id)
-                .contentType(APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
                 .content(InventoryTestHelper.asJsonString(warehouse)))
                 .andExpect(status().isOk());
     }
@@ -138,7 +139,7 @@ public class WarehouseControllerTest {
     	doNothing().when(warehouseService).delete(WAREHOUSE_ID);
     	mockMvc.perform(delete(API_VER + "/warehouse/{id}" , WAREHOUSE_ID))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     	
     }
 

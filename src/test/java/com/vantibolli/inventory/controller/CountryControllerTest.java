@@ -11,6 +11,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -83,7 +84,7 @@ public class CountryControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/country/{id}" , countryId))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(countryId)));
 
 		verify(countryService, times(1)).get(anyLong());
@@ -97,7 +98,7 @@ public class CountryControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/country/{id}" , countryId))
     	.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + countryId + " can not be found.")));
 
 		
@@ -114,7 +115,7 @@ public class CountryControllerTest {
     	when(countryService.create(country)).thenReturn(added);
     	
     	mockMvc.perform(post(API_VER + "/country")
-				.contentType(APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_UTF8_VALUE)
 				.content(InventoryTestHelper.asJsonString(country)))
 		.andExpect(status().isCreated());
     }
@@ -130,7 +131,7 @@ public class CountryControllerTest {
     	when(countryService.update(COUNTRY_ID, country)).thenReturn(updated);
     	
    	 	mockMvc.perform(put(API_VER + "/country/{id}" , COUNTRY_ID)
-                .contentType(APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
                 .content(InventoryTestHelper.asJsonString(country)))
                 .andExpect(status().isOk());             
     }
@@ -141,7 +142,7 @@ public class CountryControllerTest {
     	doNothing().when(countryService).delete(COUNTRY_ID);
     	mockMvc.perform(delete(API_VER + "/country/{id}" , COUNTRY_ID))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
 }

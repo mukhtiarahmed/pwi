@@ -13,6 +13,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -88,7 +89,7 @@ public class ItemControllerTest {
 		when(itemService.get(itemId)).thenReturn(item);
 		mockMvc.perform(get(API_VER + "/item/{id}", itemId))
 		.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(itemId)));
 
 		verify(itemService, times(1)).get(itemId);
@@ -103,7 +104,7 @@ public class ItemControllerTest {
 		when(itemService.get(itemId)).thenThrow(new EntityNotFoundException("entity of ID=" + itemId + " can not be found."));
 		mockMvc.perform(get(API_VER + "/item/{id}" , itemId))
 		.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + itemId + " can not be found.")));    
 	}
 
@@ -117,7 +118,7 @@ public class ItemControllerTest {
 		when(itemService.create(item)).thenReturn(added);
 
 		mockMvc.perform(post(API_VER + "/item")
-				.contentType(APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_UTF8_VALUE)
 				.content(InventoryTestHelper.asJsonString(item)))
 		.andExpect(status().isCreated());  
 		
@@ -133,7 +134,7 @@ public class ItemControllerTest {
 		when(itemService.update(ITEM_ID, item)).thenReturn(updated);
 		
 		   mockMvc.perform(put(API_VER + "/item/{id}" , ITEM_ID)
-                .contentType(APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
                 .content(InventoryTestHelper.asJsonString(item)))
                 .andExpect(status().isOk());
 	}
@@ -147,7 +148,7 @@ public class ItemControllerTest {
 		
 		mockMvc.perform(delete(API_VER + "/item/{id}" , ITEM_ID))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 	}
 
 	@Test
@@ -192,7 +193,7 @@ public class ItemControllerTest {
 		
 		    mockMvc.perform(get(API_VER + "/item/{id}/stock", ITEM_ID))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].quantity", is(quantity)))
                 .andExpect(jsonPath("$[1].quantity", is(quantity)));
@@ -206,7 +207,7 @@ public class ItemControllerTest {
 		
 		mockMvc.perform(get(API_VER + "/item/{id}/stock/warehouse/{warehouseId}", ITEM_ID, WAREHOUSE_ID))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.quantity", is(quantity)));
 	}
 
@@ -221,7 +222,7 @@ public class ItemControllerTest {
 		
 		   mockMvc.perform(get(API_VER + "/item/{id}/stock/country/{countryId}", ITEM_ID, COUNTRY_ID))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].quantity", is(quantity)))
                 .andExpect(jsonPath("$[1].quantity", is(quantity)));

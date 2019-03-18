@@ -12,6 +12,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -85,7 +86,7 @@ public class ItemVariantsControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/itemVariants/{id}" , id))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(id)));
 
 		verify(itemVariantsService, times(1)).get(anyLong());
@@ -101,7 +102,7 @@ public class ItemVariantsControllerTest {
     	
     	mockMvc.perform(get(API_VER +  "/itemVariants/{id}" , id))
     	.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + id + " can not be found.")));
 	
     }
@@ -143,7 +144,7 @@ public class ItemVariantsControllerTest {
     	doNothing().when(itemVariantsService).delete(BRAND_ID);
     	mockMvc.perform(delete(API_VER + "/itemVariants/{id}" , BRAND_ID))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
 }

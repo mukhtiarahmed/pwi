@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -84,7 +85,7 @@ public class ProductControllerTest {
     	
     	mockMvc.perform(get(API_VER + "/product/{id}" , productId))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.id", is(productId)));
 
 		
@@ -97,7 +98,7 @@ public class ProductControllerTest {
 		when(productService.get(productId)).thenThrow(new EntityNotFoundException("entity of ID=" + productId + " can not be found."));
 		mockMvc.perform(get(API_VER + "/product/{id}" , productId))
 		.andExpect(status().isNotFound())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE))      
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE))
 		.andExpect(jsonPath("$.message", is("entity of ID=" + productId + " can not be found.")));    
 	}
 
@@ -111,7 +112,7 @@ public class ProductControllerTest {
     	when(productService.create(product)).thenReturn(added);
     	
     	mockMvc.perform(post(API_VER + "/product")
-				.contentType(APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_UTF8_VALUE)
 				.content(InventoryTestHelper.asJsonString(product)))
 		.andExpect(status().isCreated());
     	
@@ -127,7 +128,7 @@ public class ProductControllerTest {
     	when(productService.update(PRODUCT_ID, product)).thenReturn(updated);
     	
     	 mockMvc.perform(put(API_VER + "/product/{id}" , PRODUCT_ID)
-                 .contentType(APPLICATION_JSON_VALUE)
+                 .contentType(APPLICATION_JSON_UTF8_VALUE)
                  .content(InventoryTestHelper.asJsonString(product)))
                  .andExpect(status().isOk());
     	
@@ -139,7 +140,7 @@ public class ProductControllerTest {
     	doNothing().when(productService).delete(PRODUCT_ID);
     	mockMvc.perform(delete(API_VER + "/product/{id}" , PRODUCT_ID))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
     
     @Test
@@ -151,7 +152,7 @@ public class ProductControllerTest {
     	when(productService.getProductAllSizes(PRODUCT_ID)).thenReturn(dto);
     	mockMvc.perform(get(API_VER +  "/product/{id}/sizes" , PRODUCT_ID))
     	.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_VALUE));
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8_VALUE));
     }
 
 
