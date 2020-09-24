@@ -16,7 +16,7 @@
 		<springsecurity.version>4.0.4.RELEASE</springsecurity.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
-		<jackson.databind-version>2.9.10.4</jackson.databind-version>
+		<jackson.databind-version>2.10.0.pr1</jackson.databind-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<org.aspectj-version>1.8.6</org.aspectj-version>
 		<testng.version>6.9.4</testng.version>
