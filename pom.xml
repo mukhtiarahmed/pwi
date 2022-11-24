@@ -14,7 +14,7 @@
 	<properties>
 		<springframework.version>[4.3.17,)</springframework.version>
 		<springsecurity.version>4.0.4.RELEASE</springsecurity.version>
-		<hibernate.version>4.3.11.Final</hibernate.version>
+		<hibernate.version>5.3.20.Final</hibernate.version>
 		<mysql.connector.version>8.0.28</mysql.connector.version>
 		<jackson.databind-version>2.12.7.1</jackson.databind-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
